@@ -8,7 +8,17 @@ const router = express.Router()
 router.get('/', (req, res) => {
     Projects.getProjects()
         .then((projects) => {
-            res.status(200).json(projects)
+            console.log(projects)
+            const newObj = projects.map((project) => {
+
+                    if (projects.completed) {
+                        project.completed = true
+                    } else {
+                        project.completed = false
+                    }
+                    return project
+            })
+            res.status(200).json(newObj)
         })
         .catch((error) => {
             res.status(500).json({ message:"The promise could not be resolved." })

@@ -41,12 +41,49 @@ function addTask(task) {
         .insert(task, 'id')
 }
 
-function getProjectById(id) {
-    // return db('project_resources')
-    //     .where('project_resources.project_id', id)
+function  getProjectById(id)  {
+// (1)
+//     // return db('project_resources')
+//     //     .where('project_resources.project_id', id)
+//(2)
 return db('projects').join('tasks', 'tasks.project_id', 'projects.id').join('resources', 'resources.project_id', 'tasks.project_id')
     .select('*')
-    .where('projects.id', id)            
+    .where('projects.id', id)   
+// (3) 
+// const projects = db('projects').where('projects.id', id)
+// const projectTasks = db('tasks').where('tasks.project_id', id)
+
+// const projectResources = db('resources').where('resources.project_id', id)
+// return {
+//     id: projects.id,
+//     name: projects.name,
+//     description: projects.description,
+//     completed: projects.completed,
+//     tasks: [
+//         projectTasks.map((task) => {
+//             return (
+//                 {
+//                     id: task.id,
+//                     description: task.description,
+//                     notes: task.notes,
+//                     completed: task.completed
+//                 }
+//             )
+//         })
+//     ],
+//     resources: [
+//         projectResources.map((resource) => {
+//             return (
+//                 {
+//                     id: resource.id,
+//                     name: resource.name,
+//                     description: resource.description
+
+//                 }
+//             )
+//         })
+//     ]
+// }        
 }
 
 function updateProject(changes, id) {
