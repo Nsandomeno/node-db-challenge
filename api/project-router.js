@@ -80,5 +80,17 @@ router.post('/tasks', (req, res) => {
     }
 })
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+
+    Projects.getProjectById(id)
+        .then((projectDetails) => {
+            res.status(200).json(projectDetails)
+        })
+        .catch((error) => {
+            res.status(500).json({message:"The promise could not be resolved."})
+        })
+})
+
 // export to server
 module.exports = router

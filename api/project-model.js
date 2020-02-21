@@ -8,7 +8,8 @@ module.exports = {
     getResource,
     addResource,
     getTasks,
-    addTask
+    addTask,
+    getProjectById
 }
 
 // Begin creating methods
@@ -37,4 +38,15 @@ function getTasks() {
 function addTask(task) {
     return db('tasks')
         .insert(task, 'id')
+}
+
+function getProjectById(id) {
+    // return db('project_resources')
+    //     .where('project_resources.project_id', id)
+    return db('projects')
+        .join('tasks', 'projects.id', 'tasks.project_id')
+        .join('project_details', 'projects.id', 'project_details.project_id')
+
+        
+      
 }
