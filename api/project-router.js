@@ -92,5 +92,18 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    const { id} = req.params
+    const changes = req.body
+
+    Projects.updateProject(changes, id)
+        .then((num) => {
+            res.status(200).json(num)
+        })
+        .catch((error) => {
+            res.status(500).json({message:"Promise could not be resolved."})
+        })
+})
+
 // export to server
 module.exports = router

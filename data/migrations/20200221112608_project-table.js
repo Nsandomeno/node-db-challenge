@@ -8,8 +8,15 @@ exports.up = function(knex) {
   })
   .createTable('resources', tbl => {
     tbl.increments()
-    tbl.string('name', 255).unique().notNullable()
+    tbl.string('name', 255).notNullable()
     tbl.string('description', 255)
+    tbl.integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('projects')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE')
   })
   .createTable('tasks', tbl => {
     tbl.increments()
